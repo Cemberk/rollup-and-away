@@ -1,0 +1,35 @@
+name: 'Weekly Rollup Example'
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Render
+        id: render
+        uses: ./actions/render
+        env:
+          TLDR: tldr_gpt
+          GITHUB_PAT_TOKEN: ${{ secrets.ROLLUP_PAT_TOKEN }}
+        with:
+          update_detection: |
+            today(Summary)
+            today(Update)
+            today("Trending Reason")
+            skip()
+
+      - name: Push
+        id: push
+        uses: ./actions/push
+        env:
+          GITHUB_PAT_TOKEN: ${{ secrets.ROLLUP_PAT_TOKEN }}
+        with:
+          title: '%Y-%m-%d example_report.md'
+          body: ${{ steps.render.outputs.md }}
+          targets: |
+            issue: https://github.com/github/rollup-and-away/issues
+            repo-file: https://github.com/github/rollup-and-away/tree/test-push/reports

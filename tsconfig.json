@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    // Enable latest features
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "allowJs": true,
+
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    // "sourceMap": true,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+
+    // Module absolute resolution shortcuts
+    "baseUrl": "./src",
+    "paths": {
+      "@entrypoint/*": ["1_entrypoint/*"],
+      "@pull/*": ["2_pull/*"],
+      "@transform/*": ["3_transform/*"],
+      "@template/*": ["4_template/*"],
+      "@push/*": ["5_push/*"],
+      "@util/*": ["util/*"],
+      "@config": ["util/config/index.ts"],
+      // Assets
+      "@prompts/*": ["../.github/prompts/default/*"],
+      "@templates/*": ["../templates/default/*"],
+    },
+  },
+}

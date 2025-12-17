@@ -1,0 +1,65 @@
+name: Rollup 'nUp 'nUp Push
+description: >
+  Push Markdown to a list of targets (Repo file, Issue, Discussion, etc) using the internal client
+author: amyryanmanny
+
+inputs:
+  # Authentication
+  # At least one of these auth strategies (App, PAT, or default) is required.
+  github_token:
+    description: |
+      GITHUB_TOKEN to authenticate with the GitHub API.
+      Should be explicitly set to {{ github.token }} if used.
+    required: false
+  github_pat_token:
+    description: GitHub Personal Access Token to authenticate with the GitHub API.
+    required: false
+  github_app_id:
+    description: GitHub App ID to authenticate with the GitHub API.
+    required: false
+  github_app_installation_id:
+    description: GitHub App Installation ID to authenticate with the GitHub API.
+    required: false
+  github_app_private_key:
+    description: GitHub App Private Key to authenticate with the GitHub API.
+    required: false
+
+  # Push Config
+  title:
+    description: The title of the document.
+    required: false
+  title_date:
+    description: |
+      Override the date used by strftime when formatting the title.
+      Defaults to 'Today', also supports 'Thursday', 'Friday', etc.
+    required: false
+  body:
+    description: The Markdown string to push to each target.
+    required: false
+  targets:
+    description: Targets to push the string to (see docs for syntax).
+    required: false
+  fetch:
+    description: Targets to fetch a URL from.
+    required: false
+
+outputs:
+  title:
+    description: The formatted title of the pushed document.
+
+  # URLs
+  # If there are multiple targets of the same type, the last URL will be chosen.
+  repo_file_url:
+    description: The URL of the pushed file in the repository.
+  issue_url:
+    description: The URL of the pushed issue.
+  issue_comment_url:
+    description: The URL of the pushed issue comment.
+  discussion_url:
+    description: The URL of the pushed document.
+  discussion_comment_url:
+    description: The URL of the pushed discussion comment.
+
+runs:
+  using: node20
+  main: ../../dist/push/index.js

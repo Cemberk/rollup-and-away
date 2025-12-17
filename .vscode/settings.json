@@ -1,0 +1,11 @@
+{
+  "eslint.format.enable": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "files.associations": {
+    ".husky/*": "shellscript"
+  },
+  "github.copilot.enable": {
+    // Don't use Copilot in .env files
+    "properties": false
+  }
+}

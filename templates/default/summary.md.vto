@@ -1,0 +1,15 @@
+{{- set url = getConfig("url") -}}
+{{- set title = getConfig("title") || "Report" -}}
+{{- set numUpdates = getConfig("number_of_updates") || 1 -}}
+{{- set timeframe = getConfig("timeframe") || "lastWeek" -}}
+
+{{- overrideUpdateDetection(`${timeframe}\nskip()`) -}}
+
+{{- set issues = await github.url(url, { subissues: true }) -}}
+
+# [{{ title }} {{ today }}]({{ issues.url }})
+
+{{ issues.remember({ updates: numUpdates, fields: ['Status', 'Trending'] }) }}
+{{ await memory.summarize("tldr") }}
+
+{{ debugMemory() |> safe }}
