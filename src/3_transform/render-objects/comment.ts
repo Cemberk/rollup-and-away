@@ -1,4 +1,9 @@
 import { CommentWrapper } from "@pull/github/comment";
+import { getConfig } from "@util/config";
+
+const COMMENT_LENGTH_LIMIT = Number(
+  getConfig("COMMENT_LENGTH_LIMIT") || Number.MAX_SAFE_INTEGER,
+);
 
 export type CommentRenderOptions = {
   header: boolean;
@@ -29,11 +34,15 @@ export function renderComment(
     markdown += `**Update Author:** ${comment.author}\n\n`;
   }
 
+  let content;
   if (comment.isUpdate) {
-    markdown += `${comment._update}`;
+    content = comment._update;
   } else {
-    markdown += `${comment._body}`;
+    content = comment._body;
   }
+  content = content.slice(0, COMMENT_LENGTH_LIMIT);
+
+  markdown += content;
 
   if (markdown.trim() === "") {
     if (options.skipIfEmpty) {
