@@ -39372,6 +39372,7 @@ var validKeys = new Set([
   "projectFields",
   "issueFields",
   "subissues",
+  "followLinks",
   "filter"
 ]);
 // src/util/config/render.ts
