@@ -36,7 +36,7 @@ jobs:
           # You can customize these environment variables:
           # URL: Points to the GitHub Issues/Project to summarize
           # TIMEFRAME: lastWeek, lastTwoWeeks, lastMonth
-          URL: ${{ inputs.url || github.event.repository.html_url }}
+          URL: ${{ inputs.url || format('{0}/issues', github.event.repository.html_url) }}
           TIMEFRAME: ${{ inputs.timeframe || 'lastWeek' }}
         with:
           template: './templates/default/executive-weekly.md.vto'
