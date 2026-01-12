@@ -1,0 +1,67 @@
+name: 'Weekly Executive Report'
+
+on:
+  # Run every Monday at 9:00 AM UTC
+  schedule:
+    - cron: '0 9 * * 1'
+  
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL pointing to Issues/Projects to summarize (optional, uses default if not provided)'
+        required: false
+      timeframe:
+        description: 'Timeframe for the report (lastWeek, lastTwoWeeks, lastMonth)'
+        required: false
+        default: 'lastWeek'
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Render Executive Report
+        id: render
+        uses: ./actions/render
+        env:
+          GITHUB_PAT_TOKEN: ${{ secrets.ROLLUP_PAT_TOKEN }}
+          # You can customize these environment variables:
+          # URL: Points to the GitHub Issues/Project to summarize
+          # TIMEFRAME: lastWeek, lastTwoWeeks, lastMonth
+          URL: ${{ inputs.url || github.event.repository.html_url }}
+          TIMEFRAME: ${{ inputs.timeframe || 'lastWeek' }}
+        with:
+          template: './templates/default/executive-weekly.md.vto'
+          update_detection: |
+            lastWeek(Summary)
+            lastWeek(Update)
+            lastWeek("Executive Summary")
+            lastWeek("Weekly Update")
+            skip()
+
+      - name: Push Report
+        id: push
+        uses: ./actions/push
+        env:
+          GITHUB_PAT_TOKEN: ${{ secrets.ROLLUP_PAT_TOKEN }}
+        with:
+          title: 'Executive Report - Week of %Y-%m-%d'
+          title_date: 'Monday'
+          body: ${{ steps.render.outputs.md }}
+          targets: |
+            repo-file: ${{ github.event.repository.html_url }}/tree/main/reports/executive
+            issue: ${{ github.event.repository.html_url }}/issues
+
+      - name: Report URLs
+        run: |
+          echo "📊 Executive Report Generated!"
+          echo "📁 File: ${{ steps.push.outputs.repo_file_url }}"
+          echo "📋 Issue: ${{ steps.push.outputs.issue_url }}"

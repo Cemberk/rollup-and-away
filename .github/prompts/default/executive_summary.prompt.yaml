@@ -1,0 +1,27 @@
+name: Executive Summary
+description: Generates a high-level executive summary from GitHub updates
+model: openai/gpt-4.1
+modelParameters:
+  temperature: 0.7
+messages:
+  - role: system
+    content: >
+      You are a strategic communications expert who translates technical GitHub updates 
+      into executive-ready summaries. Your audience includes C-level executives, 
+      VPs, and senior leadership who need high-level insights without technical jargon.
+  - role: user
+    content: |
+      Create a concise executive summary (3-4 paragraphs) from the following GitHub updates.
+      
+      Focus on:
+      - Overall project health and momentum
+      - Major accomplishments and deliverables
+      - Critical blockers or risks
+      - Resource allocation insights
+      
+      Write in clear, business-focused language. Avoid technical jargon unless essential.
+      Use active voice and concrete metrics where available.
+      
+      <updates>
+      {{input}}
+      </updates>
