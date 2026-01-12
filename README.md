@@ -42,6 +42,10 @@ See [Issues](https://github.com/github/rollup-and-away/issues) to open an issue.
 
 To set up automated weekly executive reports that include strategic insights, metrics analysis, and comprehensive summaries:
 
+**📋 [5-Minute Quick Start Guide →](QUICKSTART.md)**
+
+Or follow these steps:
+
 1. Copy `.github/workflows/executive-weekly.yaml` to your repository
 2. Configure a `ROLLUP_PAT_TOKEN` secret with appropriate permissions
 3. Customize the workflow to point to your Issues or Projects
