@@ -2,6 +2,8 @@
 
 This guide explains how to set up automated weekly executive reports using Rollup and Away.
 
+> 📋 **See an example**: Check out a [sample executive report](EXAMPLE_REPORT.md) to see what the output looks like.
+
 ## Overview
 
 The Executive Weekly Report feature generates comprehensive, high-level summaries of your repository's activity designed for executives, senior leadership, and engineering teams. Reports are generated automatically every week and include:

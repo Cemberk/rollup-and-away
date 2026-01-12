@@ -1,0 +1,47 @@
+name: 'Test Executive Report'
+
+# This workflow is for testing the executive reporting feature
+# It can be triggered manually to test the report generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL pointing to Issues/Projects to summarize'
+        required: false
+        default: 'https://github.com/github/rollup-and-away/issues'
+      timeframe:
+        description: 'Timeframe for the report (lastWeek, lastTwoWeeks, lastMonth)'
+        required: false
+        default: 'lastMonth'
+
+jobs:
+  test-report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Render Executive Report
+        id: render
+        uses: ./actions/render
+        env:
+          GITHUB_PAT_TOKEN: ${{ secrets.ROLLUP_PAT_TOKEN }}
+          URL: ${{ inputs.url }}
+          TIMEFRAME: ${{ inputs.timeframe }}
+        with:
+          template: './templates/default/executive-weekly.md.vto'
+          update_detection: |
+            lastMonth(Summary)
+            lastMonth(Update)
+            skip()
+
+      - name: Display Report
+        run: |
+          echo "📊 Executive Report Generated!"
+          echo "---"
+          echo "${{ steps.render.outputs.md }}"
