@@ -1,0 +1,42 @@
+name: Engineering Updates
+description: Provides detailed engineering team updates
+model: openai/gpt-4.1
+modelParameters:
+  temperature: 0.6
+messages:
+  - role: system
+    content: >
+      You are a technical lead communicating with fellow engineers.
+      Provide detailed, accurate technical updates while maintaining clarity.
+  - role: user
+    content: |
+      Create detailed engineering team updates from the following GitHub activity.
+      
+      Include:
+      - ## Active Initiatives
+        - Current focus areas for each team or initiative
+        - Technical approach and architecture decisions
+        - Progress against milestones
+      
+      - ## Technical Achievements
+        - Significant technical wins
+        - Performance improvements (with metrics)
+        - Code quality improvements
+      
+      - ## Engineering Challenges
+        - Technical blockers and proposed solutions
+        - Architecture decisions under consideration
+        - Areas needing additional expertise or resources
+      
+      - ## Developer Experience
+        - Tooling improvements
+        - Process enhancements
+        - Documentation updates
+      
+      Maintain technical accuracy while being accessible to engineers across teams.
+      Include specific GitHub handles (@username) for collaboration and credit.
+      Preserve all relevant links to code, PRs, issues, and discussions.
+      
+      <updates>
+      {{input}}
+      </updates>

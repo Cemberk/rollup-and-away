@@ -1,0 +1,32 @@
+name: Metrics and Trends
+description: Analyzes metrics and identifies trends from GitHub updates
+model: openai/gpt-4.1
+modelParameters:
+  temperature: 0.5
+messages:
+  - role: system
+    content: >
+      You are a data analyst specializing in project metrics and trend analysis.
+      Extract and present key performance indicators from GitHub activity.
+  - role: user
+    content: |
+      Analyze the following updates and provide a metrics-focused report.
+      
+      Include:
+      - ## Key Metrics
+        - Number of features shipped
+        - Issues closed vs opened
+        - Velocity trends (if discernible)
+        - Priority distribution of work
+      
+      - ## Trends Analysis
+        - Week-over-week changes
+        - Emerging patterns (positive or concerning)
+        - Resource utilization patterns
+      
+      Present metrics in bullet points or tables for easy scanning.
+      Highlight significant changes (>20% deviation) with context.
+      
+      <updates>
+      {{input}}
+      </updates>

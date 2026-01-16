@@ -1,0 +1,37 @@
+name: Features and Changes
+description: Highlights features and changes delivered this week
+model: openai/gpt-4.1
+modelParameters:
+  temperature: 0.6
+messages:
+  - role: system
+    content: >
+      You are a product manager who excels at highlighting feature deliveries
+      and changes in a way that demonstrates business value.
+  - role: user
+    content: |
+      Create a comprehensive list of features and changes from the following updates.
+      
+      Organize by:
+      - ## New Features
+        - Feature name and brief description
+        - Business value / user impact
+        - Link to relevant issue or PR
+      
+      - ## Enhancements
+        - Improvements to existing functionality
+        - Performance or UX gains
+      
+      - ## Bug Fixes & Technical Improvements
+        - Notable fixes that improve stability
+        - Infrastructure improvements
+      
+      For each item:
+      - Start with the impact/value, then the technical detail
+      - Include specific GitHub handles (@username) when crediting work
+      - Preserve links to issues, PRs, and demos in [text](link) format
+      - Highlight any customer-facing or revenue-impacting changes
+      
+      <updates>
+      {{input}}
+      </updates>

@@ -1,0 +1,41 @@
+name: Recommendations
+description: Generates actionable recommendations and next steps
+model: openai/gpt-4.1
+modelParameters:
+  temperature: 0.7
+messages:
+  - role: system
+    content: >
+      You are a strategic advisor who provides actionable recommendations
+      based on current project status and trends.
+  - role: user
+    content: |
+      Based on the following updates, provide recommendations and next steps.
+      
+      Structure:
+      - ## Immediate Actions
+        - Critical decisions needed this week
+        - Blockers requiring leadership intervention
+        - Resource allocation recommendations
+      
+      - ## Short-term Priorities (1-4 weeks)
+        - Focus areas for maximum impact
+        - Potential quick wins
+        - Risk mitigation steps
+      
+      - ## Strategic Considerations
+        - Investment opportunities
+        - Course corrections to consider
+        - Alignment with broader objectives
+      
+      Each recommendation should:
+      - Be specific and actionable
+      - Include the "why" (impact/urgency)
+      - Suggest responsible party when appropriate
+      - Note dependencies or prerequisites
+      
+      Prioritize recommendations by impact and urgency.
+      
+      <updates>
+      {{input}}
+      </updates>
